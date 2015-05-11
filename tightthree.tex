@@ -1,0 +1,742 @@
+\documentclass[11pt]{article}
+
+\usepackage{tikz}
+
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{algorithm,algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+%\usetikzlibrary{calc}
+\textheight9in \textwidth6in
+
+\hoffset-0.55in \voffset-0.6in
+
+%\pagestyle{empty}
+
+\newtheorem{defn}{{\bf Definition}}[section]
+\newtheorem{example}[defn]{{\bf Example}} \newtheorem{lemma}[defn]{{\bf
+Lemma}} \newtheorem{prop}[defn]{{\bf Proposition}}
+\newtheorem{theorem}[defn]{{\bf Theorem}} \newtheorem{cor}[defn]{{\bf
+Corollary}} \newtheorem{remark}[defn]{{\bf Remark}}
+\newtheorem{conj}[defn]{{\bf Conjecture}} \newtheorem{qn}[defn]{{\bf
+Question}}
+
+
+                        %%% AMS fonts%%%
+
+
+\font\bbb=msbm10 scaled\magstep1
+
+\newcommand{\BB}{\mbox{\bbb B}} \newcommand{\CC}{\mbox{\bbb C}}
+\newcommand{\FF}{\mbox{\bbb F}} \newcommand{\HH}{\mbox{\bbb H}}
+\newcommand{\NN}{\mbox{\bbb N}} \newcommand{\OO}{\mbox{\bbb O}}
+\newcommand{\QQ}{\mbox{\bbb Q}} \newcommand{\RR}{\mbox{\bbb R}}
+\newcommand{\ZZ}{\mbox{\bbb Z}} \newcommand{\N}{\mbox{I\!\!\!N}}
+
+\font\bbb=msbm8 scaled\magstep1
+
+\newcommand{\BBB}{\mbox{\bbb B}} \newcommand{\CCC}{\mbox{\bbb C}}
+\newcommand{\FFF}{\mbox{\bbb F}} \newcommand{\HHH}{\mbox{\bbb H}}
+\newcommand{\NNN}{\mbox{\bbb N}} \newcommand{\OOO}{\mbox{\bbb O}}
+\newcommand{\QQQ}{\mbox{\bbb Q}} \newcommand{\RRR}{\mbox{\bbb R}}
+\newcommand{\ZZZ}{\mbox{\bbb Z}}
+
+
+\def\scoll{\mbox{{\scriptsize $\,\searrow$}$\!\!\stackrel{{}^{\rm
+s}}{}\,\,$}}
+
+\def\coll{\mbox{\scriptsize $\,\,\searrow\,$}}
+
+\newcommand{\bdN}{N^{\!\!\!^{^{\bullet}}}}
+\newcommand{\TPSS}{S^{\hspace{.2mm}3} \mbox{$\times
+\hspace{-2.8mm}_{-}$} \, S^{\hspace{.1mm}1}}
+\newcommand{\TPSSS}{S^{\hspace{.2mm}3} \mbox{$\times
+\hspace{-4.5mm}_{-}$} \, S^{\hspace{.1mm}1}}
+\newcommand{\TPSSD}{S^{\hspace{.2mm}d-1} \mbox{$\times
+\hspace{-2.8mm}_{-}$} \, S^{\hspace{.1mm}1}}
+\newcommand{\TPSSDS}{S^{\hspace{.2mm}d-1} \mbox{$\times
+\hspace{-3.3mm}_{-}$} \, S^{\hspace{.1mm}1}}
+\newcommand{\TPSSMS}{S^{\hspace{.2mm}m} \mbox{$\times
+\hspace{-3.3mm}_{-}$} \, S^{\hspace{.1mm}1}}
+\newcommand{\TPSST}{S^{\hspace{.2mm}2} \mbox{$\times
+\hspace{-2.8mm}_{-}$} \, S^{\hspace{.1mm}1}}
+
+\newcommand{\XB}{X \hspace{-2.7mm}^{^{\mbox{\bf --}}}}
+
+
+
+ \newcommand{\TPPSS}{\kern.24em \rule width.08em height1.5ex
+depth-.08ex \kern-.36em \times}
+
+
+\def\smlbox{\mbox{ \setlength{\unitlength}{1mm}
+\begin{picture}(4.3,0)(0,0) \put(0,2){\mbox{\tiny ${}_{{}^{
+\begin{array}[b]{|c|} \hline \\[-1.7mm] \hspace{-1.4mm}{}^{\bullet}
+\hspace{-0.6mm} \angle {}^{\bullet}\hspace{-1.6mm}\\[-1mm]
+\hspace{-1.4mm}{\large \smile}\hspace{-1.6mm}\\[-.2mm] \hline
+\end{array}}} $ }} \end{picture} }}
+
+\font\bb=msbm10 scaled\magstep2 \newcommand{\C}{\mbox{\bb C}}
+
+
+\newcommand{\al}{\alpha} \newcommand{\ba}{\beta}
+\newcommand{\ga}{\gamma} \renewcommand{\th}{\theta}
+\newcommand{\Om}{\Omega} \newcommand{\La}{\Lambda}
+\newcommand{\noi}{\noindent} \newcommand{\si}{\sigma}
+\newcommand{\Ga}{\Gamma} \newcommand{\De}{\Delta}
+\newcommand{\Lk}[2]{{\rm lk}_{#1}(#2)} \newcommand{\st}[2]{{\rm
+st}_{#1}(#2)}
+\newcommand{\mb}{\mathbb}
+\newcommand{\tr}[1]{{\cal D}T_#1}
+\newcommand{\ovr}[1]{\overrightarrow{#1}}
+\newcommand{\trt}[1]{treetype(#1)}
+
+\begin{document}
+
+%\setcounter{page}{97}
+
+\title{\bf Tight triangulations of three manifolds}
+
+%\date{}
+
+\maketitle
+
+\vspace{-5mm}
+
+
+
+
+
+\begin{center}
+\date{}
+\end{center}
+
+
+
+
+
+\hrule
+
+\bigskip
+
+\noindent {\bf Abstract.}
+
+\smallskip
+{\small Tight triangulations are exotic objects in combinatorial topology.
+Any piecewise linear embedding of a tight triangulation into euclidean
+space is as convex as allowed by the topology of the underlying space.
+Tight triangulations are also conjectured to be minimal, and proven to be
+so for dimensions two and three. Inspite of substantial theoretical results
+about such triangulations, there are precious few examples. Infact, apart
+from dimension two, we do not know if there are infinitely many of them in
+any dimension. In this paper, we present a computer friendly combinatorial
+scheme to obtain several three dimensional tight triangulations. While we
+still do not know if there are infinitely many of them, it does look like
+there are abundantly many, if we look for them the right way.}
+
+\bigskip
+
+\noindent {\small {\em MSC 2010\,:} 57Q15, 57R05.
+
+\noindent {\em Keywords:} Stacked sphere; Tight triangulation;
+Strongly minimal triangulation.
+
+}
+
+\bigskip
+
+\hrule
+
+\section{Introduction}
+In this paper we present some tight triangulations of some three manifolds.
+We prove an adaptation of the construction method used in \cite{bdns},
+which is more amenable to computer processing. The triangulations we obtain
+are 
+neighborly members of Walkup's class ${\cal K}(d)$, with each vertex-link as a
+stacked sphere. All our triangulations triangulate connected sums of
+$1$-handlebodies. Among the known constructions of such manifolds are:
+the unique 9-vertex triangulation of $(\TPSST)$ of K\"uhnel, apart from the
+two three dimensional members
+of the infinite family constructed in \cite{bdns}.
+
+
+
+\section{Preliminaries}
+
+
+All simplicial complexes considered here are finite and abstract.
+By a triangulated manifold/sphere/ball, we mean an abstract
+simplicial complex whose geometric carrier is a topological
+manifold/sphere/ball. We identify two complexes if they are
+isomorphic. A $d$-dimensional simplicial complex is called {\em
+pure} if all its maximal faces (called {\em facets}) are
+$d$-dimensional. A $d$-dimensional pure simplicial complex is said
+to be a {\em weak pseudomanifold} if each of its $(d - 1)$-faces
+is in at most two facets. For a $d$-dimensional weak
+pseudomanifold $X$, the {\em boundary} $\partial X$ of $X$ is the
+pure subcomplex of $X$ whose facets are those $(d-1)$-dimensional
+faces of $X$ which are contained in unique facets of $X$. The {\em
+dual graph} $\Lambda(X)$ of a pure simplicial complex $X$ is the
+graph whose vertices are the facets of $X$, where two facets are
+adjacent in $\Lambda(X)$ if they intersect in a face of
+codimension one. A {\em pseudomanifold} is a weak pseudomanifold
+with a connected dual graph. All connected triangulated manifolds
+are automatically pseudomanifolds.
+
+
+If $X$ is a $d$-dimensional simplicial complex then, for $0\leq j
+\leq d$, the number of its $j$-faces is denoted by $f_j = f_j(X)$.
+The vector $f(X) := (f_0, \dots, f_d)$ is called the {\em face
+vector} of $X$ and the number $\chi(X) := \sum_{i=0}^{d} (-1)^i
+f_i$ is called the {\em Euler characteristic} of $X$. As is well
+known, $\chi(X)$ is a topological invariant, i.e., it depends only
+on the homeomorphic type of $|X|$. A simplicial complex $X$ is
+said to be {\em $l$-neighborly} if any $l$ vertices of $X$ form a
+face of $X$. A 2-neighborly simplicial complex is also called a
+{\em neighborly} simplicial complex.
+
+A {\em standard $d$-ball} is a pure $d$-dimensional simplicial
+complex with one facet. The standard ball with facet $\sigma$ is
+denoted by $\overline{\sigma}$. A $d$-dimensional pure simplicial
+complex $X$ is called a {\em stacked $d$-ball} if there exists a
+sequence $B_1, \dots, B_m$ of pure simplicial complexes such that
+$B_1$ is a standard $d$-ball, $B_m=X$ and, for $2\leq i\leq m$,
+$B_i = B_{i-1}\cup \overline{\sigma_i}$ and $B_{i-1} \cap
+\overline{\sigma_i} = \overline{\tau_i}$, where $\sigma_i$ is a
+$d$-face and $\tau_i$ is a $(d-1)$-face of $\sigma_i$. Clearly, a
+stacked ball is a pseudomanifold. A simplicial complex is called a
+{\em stacked $d$-sphere} if it is the boundary of a stacked
+$(d+1)$-ball. A trivial induction on $m$ shows that a stacked
+$d$-ball actually triangulates a topological $d$-ball, and hence a
+stacked $d$-sphere is a triangulated $d$-sphere. If $X$ is a
+stacked ball then clearly $\Lambda(X)$ is a tree. So, a stacked ball
+is a pseudomanifold whose dual graph is a tree. But, the converse
+is not true (e.g., the 3-pseudomanifold $X$ whose facets are
+$1234, 2345, 3456, 4567, 5671$ is a pseudomanifold for which
+$\Lambda(X)$ is a tree but $|X|$ is not a ball). The following results appear
+in \cite{bdns}.
+
+\begin{prop}\label{prop:stackedball} Let $X$ be a pure
+$d$-dimensional simplicial complex.  \begin{enumerate} \item[{\rm
+(i)}] If $\Lambda(X)$ is a tree then $f_0(X) \leq f_d(X) +d$.
+\item[{\rm (ii)}] $\Lambda(X)$ is a tree and $f_0(X) = f_d(X) +d$
+if and only if $X$ is a stacked ball.  \end{enumerate}
+\end{prop}
+
+\begin{cor}\label{cor:C0} Let $X$ be a pure $d$-dimensional
+simplicial complex and let $CX$ denote a {\em cone} over $X$.
+Then $CX$ is a stacked $(d+1)$-ball if and only if $X$ is a
+stacked $d$-ball.
+\end{cor}
+
+In \cite{wa}, Walkup defined the class ${\cal K}(d)$ as the family
+of all $d$-dimensional simplicial complexes all whose vertex-links
+are stacked $(d - 1)$-spheres. Clearly, all the members of ${\cal
+K}(d)$ are triangulated closed manifolds. Let ${\cal K}^{\ast}(d)$
+be the class of 2-neighborly members of  ${\cal K}(d)$. We know
+the following.
+
+\begin{prop}[Bagchi and Datta \cite{bd16}]\label{P2}
+Let $M$ be a connected closed triangulated manifold of dimension
+$d\geq 3$. Let $\beta_1=\beta_1(M;\ZZ_{2})$. Then the face vector
+of $M$ satisfies:
+\begin{enumerate}[{\rm (a)}]
+\item $ f_j \geq \begin{cases}
+            \binom{d+1}{j}f_0+j\binom{d+2}{j+1}(\beta_1-1), & \mbox{
+if } 1\leq j<d, \\
+            df_0+(d-1)(d+2)(\beta_1-1), & \mbox{ if } j=d.
+        \end{cases}
+$
+
+\item $\binom{f_0-d-1}{2}\geq \binom{d+2}{2}\beta_1$.
+\end{enumerate}
+When $d\geq 4$, the equality holds in {\rm (a)} $($for some $j
+\geq 1$, equivalently, for all $j\,)$ if and only if $M\in {\cal
+K}(d)$, and equality holds in {\rm (b)} if and only if $M\in
+{\cal K}^{\ast}(d)$.
+\end{prop}
+
+The case $d=4$ of the above proposition is due to Walkup \cite{wa}
+and K\"{u}hnel \cite{ku}. Part (b) of the above proposition is due
+to Novik and Swartz \cite{NS}.
+
+\begin{prop}[Kalai \cite{ka}]\label{P3} For $d\geq 4$, a connected
+simplicial complex $X$ is in ${\cal K}(d)$ if and only if $X$ is
+obtained from a stacked $d$-sphere by $\beta_1(X)$ combinatorial
+handle additions. In consequence, any such $X$ triangulates either
+$(S^{\,d -1}\!\times S^1)^{\# \beta_1}$ or $(\TPSSD)^{\#\beta_1}$
+according as $X$ is orientable or not. $($Here $\beta_1 =
+\beta_1(X).)$ \end{prop}
+
+It follows from Proposition \ref{P3}  that \begin{eqnarray}
+\label{eq:beta1} \chi(X) = 2 - 2 \beta_1(X) \, \mbox{ for } \,
+X\in {\cal K}(d).  \end{eqnarray}
+
+For a field $\FF$, a $d$-dimensional simplicial complex $X$ is
+called {\em tight with respect to} $\FF$ (or {\em $\FF$-tight}) if
+(i) $X$ is connected, and (ii) for all induced subcomplexes $Y$ of
+$X$ and for all $0\leq j \leq d$, the morphism $H_{j}(Y; \FF) \to
+H_{j}(X; \FF)$ induced by the inclusion map $Y \hookrightarrow X$
+is injective. If $X$ is $\QQ$-tight then it is $\FF$-tight for all
+fields $\FF$ and called {\em tight} (cf. \cite{bd17}).
+
+A $d$-dimensional simplicial complex $X$ is called {\em minimal}
+if $f_0(X) \leq f_0(Y)$ for every triangulation $Y$ of the
+geometric carrier $|X|$ of $X$. We say that $X$ is {\em strongly
+minimal} if $f_i(X) \leq f_i(Y)$, $0\leq i \leq d$, for all such
+$Y$. We know the following.
+
+
+\begin{prop}[Effenberger \cite{ef}, Bagchi and Datta
+\cite{bd16}]\label{P4} Every $\FF$-orientable member of ${\cal
+K}^{\ast}(d)$ is $\FF$-tight for $d\neq 3$. An $\FF$-orientable
+member of ${\cal K}^{\ast}(3)$ is $\FF$-tight if and only if
+$\beta_1(X)=(f_0(X)-4)(f_0(X)-5)/20$.
+\end{prop}
+
+\begin{prop}[Bagchi and Datta \cite{bd16}]\label{P5} Every
+$\FF$-tight member of\,  ${\cal K}(d)$ is strongly minimal.
+\end{prop}
+
+Let $\overline{{\cal K}}(d)$ be the class of all $d$-dimensional
+simplicial complexes all whose vertex-links are stacked
+$(d-1)$-balls. Clearly, if $N \in \overline{{\cal K}}(d)$ then $N$
+is a triangulated manifold with boundary and satisfies
+\begin{eqnarray} \label{eq:skel} {\rm skel}_{d-2}(N) = {\rm
+skel}_{d-2}(\partial N).  \end{eqnarray} Here ${\rm skel}_{j}(N) =
+\{\alpha\in N \, : \, \dim(\alpha) \leq j\}$ is the $j$-skeleton
+of $N$. We know the following.
+
+\begin{prop}[Bagchi and Datta \cite{bd17}]\label{P6}
+For $d \geq 4$, $M\mapsto \partial M$ is a bijection from
+$\overline{\cal K}(d+1)$ to ${\cal K}(d)$.
+\end{prop}
+
+From the above proposition, we have the following:
+\begin{cor}\label{cor:C1}
+For $d\geq 4$, if $M\in \overline{\cal K}(d+1)$ then ${\rm
+Aut}(M)={\rm Aut}(\partial M)$.
+\end{cor}
+
+Let $G$ be a graph and ${\cal T}=\{T_i\}_{i\in {\cal I}}$ be a family of induced subtrees of $G$, such that every vertex of $G$ is contained in exactly $d+1$ trees and any two adjacent vertices appear together in exactly $d$ trees. We define the pure $d$-dimensional simplicial complex ${\cal K}(G,{\cal T})$ by the following facet complex:
+\begin{equation}\label{eq:scdual}
+{\cal K}(G,{\cal T}) := \{\{i: u\in T_i\}: u\in V(G)\}.
+\end{equation}
+We will denote the facet $\{i: u\in T_i\}$ by $\hat{u}$ for $u\in V(G)$.
+Our constructions are based on following result from \cite{bdns}.
+
+\begin{prop}\label{prop:construction}
+Let $G$ be a graph and ${\cal T} = \{T_i\}_{i=1}^{n}$ be a  family
+of $(n-d)$-vertex induced subtrees of $G$, any two of which
+intersect. Suppose that {\rm (i)} each vertex of $G$ is in exactly
+$d+1$ members of $\cal T$  and {\rm (ii)} for any two vertices
+$u\neq v$ of $G$, $u$ and $v$ are together in exactly $d$ members
+of $\cal T$ if and only if $uv$ is an edge of $G$. Then ${\cal K}(G,{\cal T})$ is a neighborly member of $\overline{\cal K}(d)$, with
+$\Lambda({\cal K}(G,{\cal T}))\cong G$.
+\end{prop}
+
+\section{Examples of tight three manifolds}
+In this section we present examples of tight three dimensional manifolds
+obtained as boundaries of tight four manifolds with boundary. More explicitly
+for each $n=20k+9,2\leq k\leq 5$, we construct $n$-vertex triangulations using
+Proposition 
+\ref{prop:construction} which have $\mb{Z}_n$ as the automorphism group. We
+need some notation to describe our construction.
+
+Let $k\geq 1$, $n = 20k+9$ and $d_0,d_1,\ldots, d_k$ be invertible elements
+in $(\mathbb{Z}_n,\cdot)$.  Let $G := G(k;d_0,\ldots,d_k)$ denote the graph
+on $n(4k+1)$ vertices with the vertex set $V(G)$ given by 
+$V(G) := \{v_{i,j}: 0\leq i\leq 4k, j\in \mb{Z}_n\}$. The edge set $E(G)$ of
+$G$ consists of edges $(v_{i,j},v_{i+1,j})$ for $0\leq i<4k, j\in \mb{Z}_n$,
+and edges $(v_{4i,j},v_{4i,j+d_i})$ for $0\leq i\leq k$ and $j\in
+\mathbb{Z}_n$ (Note that the second
+subscript is read modulo $n$). In the graph $G(k;d_0,\ldots,d_k)$ let $P_j$
+denote the path $v_{0,j}v_{1,j}\cdots v_{4k,j}$ for $j\in \mb{Z}_n$. Also let
+$C_i$ denote the subgraph spanned by the edges $\{(v_{4i,j},v_{4i,j+d_i}):
+j\in \mathbb{Z}_n\}$
+for $0\leq i\leq k$. Note that when $d_0,\ldots,d_k$ are relatively prime to
+$n$, each of the subgraphs $C_i$ is an $n$-cycle. We also note the following
+automorphism of the graph $G(k;d_0,\ldots,d_k)$:
+\begin{equation}\label{eq:auto}
+\varphi := \prod_{i=0}^{4k} (v_{i,0},v_{i,1},\ldots,v_{i,n-1}).
+\end{equation}
+The automorphism $\varphi$ generates the automorphism group of $G$
+isomorphic to $\mathbb{Z}_n$. To construct neighborly members of
+$\overline{\cal K}(4)$, we exhibit a family of subtrees of $G$ which
+satisfy the conditions in Proposition \ref{prop:construction}. 
+
+\subsection{Construction of induced subtrees of $G$}
+To describe the subtrees of $G$, we introduce some terminology. A
+collection ${\cal D}=\{(\sigma_i,\tau_i):1\leq i\leq k\}$ where
+$\sigma_i,\tau_i$ are permutations of the set $\{0,1,2,3\}$ is called
+a $k$-{\em deck} of permutations. For a vertex $v_{i,j}\in V(G)$, we call the
+subpath $v_{i-l,j}P_jv_{i,j}$ of $P_j$ to be the {\em upward} path of length $l$ at
+$v_{i,j}$. Similarly we call the subpath $v_{i,j}P_jv_{i+l,j}$ of $P_j$ to be the
+{\em downward} path of length $l$ at $v_{i,j}$. 
+
+\begin{defn}\label{defn:tree}{\rm 
+For a $k$-deck ${\cal D} =
+\{(\sigma_i,\tau_i)\}_{i=1}^k$, let $\tr{j}$ be the induced subgraph of
+$G$ spanned by the following:
+\begin{enumerate}[{\rm (i)}]
+\item The paths $v_{4i,j}v_{4i,j+d_i}\cdots v_{4i,j+4\cdot d_i}$ for $0\leq i\leq
+k$.
+\item The path $P_j$.
+\item Upward paths of length $\tau_i(t)$ at vertex $v_{4i,j+(t+1)d_i}$ for
+$1\leq i\leq k$ and $0\leq t\leq 3$. 
+\item Downward paths of length $\sigma_{i+1}(t)$ at vertex $v_{4i,j+(t+1)d_i}$
+for $0\leq i\leq k-1$ and $0\leq t\leq 3$.
+\end{enumerate}
+}
+\end{defn}
+
+We notice that $\tr{j}=\varphi^j(\tr{0})$. For a permutation pair
+$(\sigma_i,\tau_i)\in {\cal D}$, we define its {\em span} $sp(\sigma_i,\tau_i)$ to be
+the subset of $\mb{Z}_n$ given by $\{\pm ((p+1)d_{i-1}-(q+1)d_i): 0\leq p,q\leq
+3, \sigma_i(p)+\tau_i(q)\geq 4\}$. We define the {\em span} of ${\cal D}$, denoted by 
+$sp({\cal D})$ as:
+\begin{equation}\label{eq:span}
+sp({\cal D}) = \displaystyle \bigcup_{i=1}^k sp(\sigma_i,\tau_i) \cup \{\pm td_i: 0\leq t\leq 4,
+0\leq i\leq k\}.
+\end{equation}
+
+\begin{lemma}\label{lem:tree}
+If $sp({\cal D})=\mathbb{Z}_n$, then the subgraph ${\cal D}T_j$ is a tree for all $j=0,\ldots,n-1$.
+\end{lemma}
+\begin{proof}
+First we show $sp({\cal D})=\mathbb{Z}_n$ implies that the sets in the union
+in (\ref{eq:span}) are mutually
+disjoint. Note that $|sp(\sigma_i,\tau_i)|\leq 6$. Then the number of
+non-zero elements in $sp({\cal D})$ is at most $2\cdot 6k+2\cdot
+4(k+1)=20k+9=n-1$. Thus all the sets in the union must be mutually disjoint
+to acheive $sp({\cal D})=\mathbb{Z}_n$. Now we proceed to show that ${\cal
+D}T_j$ is a tree for all $j=0,\ldots,n-1$. Notice that the steps (i) and
+(ii) of the construction in Definition \ref{defn:tree}, yeild a tree
+consisting of the path $P_j$ and arcs of length $4$ of cycles $C_i$ for
+$0\leq i\leq k$. In the steps (iii) and (iv) we attach upward and downward
+paths to the arcs attached in step (i). The resulting graph is clearly
+connected. Since the new vertices introduced in steps (iii) and (iv) have
+an edge only if belong to the same path $P_j$ for some $j$, for a cycle to
+occur, two paths added in steps (iii) and (iv) must be subpaths of the
+same path $P_j$ for some $j$. But then we must have
+$j+(t+1)d_i=j+(t'+1)d_i$, or $j+(t+1)d_{i-1} = j+(t'+1)d_i$ for some $0\leq
+t,t'\leq 3$.  The former implies $t=t'$, in which case the two paths are
+the same. In the latter case, we have $(t+1)d_{i-1}=(t'+1)d_i$. But then the sets
+$\{\pm td_i: 0\leq t\leq 4\}$ and $\{\pm td_{i-1}: 0\leq t\leq 4\}$ are not
+disjoint, a contradiction. Thus the resulting graph is
+connected, and without a cycle. Hence it is a tree. 
+\end{proof}
+
+We have the following:
+\begin{lemma}\label{lem:span}
+For $j\in sp({\cal D})$, the subgraphs $\tr{0}$ and $\tr{j}$ intersect.
+\end{lemma}
+\begin{proof}
+First assume that $j=\pm td_i$ for some $0\leq t\leq 4$. For $j=td_i$,
+$0\leq t\leq 4$, the vertex $v_{4i,td_i}$ is common to both $\tr{0}$ and
+$\tr{j}$. For $j=-td_i$, $0\leq t\leq 4$, the vertex $v_{4i,0}$ is common
+to both $\tr{0}$ and $\tr{j}$. Hence the subgraphs intersect. Next assume that
+$j=\pm ((p+1)d_{i-1}-(q+1)d_i)$ where $0\leq p,q\leq 3$ and
+$\sigma_i(p)+\tau_i(q)\geq 4$. If $j=(p+1)d_{i-1}-(q+1)d_i$, let
+$r=j+(q+1)d_i=(p+1)d_{i-1}$. Then the subgraph $\tr{0}$ contains a downward
+path of length $\sigma_i(p)$ at $v_{4(i-1),r}$, and the subgraph $\tr{j}$
+contains an upward path of length $\tau_i(q)$ at $v_{4i,r}$. Since
+$\sigma_i(p)+\tau_i(q)\geq 4$, the two paths intersect. Similarly, it can
+be shown that $\tr{0}$ and $\tr{j}$ intersect when
+$j=-(p+1)d_{i-1}+(q+1)d_i$.  
+\end{proof}
+
+\begin{lemma}\label{lem:permselect}
+Let ${\cal D}=\{(\sigma_i,\tau_i)\}_{i=1}^k$ be a deck of permutations such
+that:
+\begin{enumerate}[{\rm (a)}]
+\item $sp({\cal D}) = \mb{Z}_n$.
+\item $\sigma_{i}(t)+\tau_{i-1}(t)\geq 1$ for $2\leq i\leq k, 0\leq t\leq 2$. 
+\item $\sigma_{i}(3),\tau_{i}(3) \geq 1$ for $1\leq i\leq k$.
+\end{enumerate}
+Then ${\cal K}(G,{\cal D}T)$ is a neighborly member of $\overline{\cal K}(4)$ where  ${\cal D}T = \{\tr{j}\}_{j=0}^{n-1}$.
+\end{lemma}
+
+To prove Lemma \ref{lem:permselect}, we will first show an equivalent of
+Proposition \ref{prop:construction}.
+
+\begin{lemma}\label{lem:construction2}
+Let $G$ be a graph and ${\cal T}=\{T_i\}_{i=1}^n$ be a family of $(n-d)$-vertex
+induced subtrees of $G$, any two of which intersect. Suppose that {\rm (i)} each
+vertex of $G$ is in exactly $d+1$ members of ${\cal T}$, {\rm (ii)} any two adjacent
+vertices $u$ and $v$ occur together in exactly $d$ members of ${\cal T}$ and
+{\rm (iii)} for a vertex $u\in V(T), T\in {\cal T}$, we have $d_G(u)-d_T(u)\leq 1$.
+Then ${\cal K}(G, {\cal T})$ is a
+neighborly member of $\overline{\cal K}(d)$ with $\Lambda({\cal K}(G, {\cal T}))\cong G$. 
+\end{lemma}
+\begin{proof}
+Let $T_i\in {\cal T}$ be a tree. For a vertex $r\in T_i$, define the oriented tree
+$T_i(r)$ with directed edges $\ovr{uv}$ where $uv\in T_i$ and $v$ is closer
+to $r$ than $u$. Define {\em label} $l(\ovr{uv})$ to be the unique element of
+$\hat{u}\backslash \hat{v}$ (follows from conditions (i) and (ii)). We prove
+that all edges in $T_i(r)$ have distinct labels. Now, there are $d$ other trees
+that intersect $T_i$ in $r$. Let $T_j\in {\cal T}$ be a tree that does not
+intersect $T_i$ in $r$. Since any two trees in ${\cal T}$ intersect, there is a
+vertex $w\neq r$ which is common to $T_i$ and $T_j$. Then we see that one of the
+edges in the $w$-$r$ path in $T_i(r)$ must have the label $j$. Since there are
+$n-d-1$ such trees and also $n-d-1$ edges in $T_i(r)$, we conclude that all
+labels must be distinct. Further the labels are different from the ones seen at
+$r$.
+
+We now prove that $(G,{\cal T})$ satisfy the conditions in Proposition
+\ref{prop:construction}. Essentially, we need to show that $|\hat{u}\cap
+\hat{v}|=d$ implies that $uv$ is an edge in $G$.
+Suppose $u,v$ are vertices in $G$
+such that $|\hat{u}\cap \hat{v}|=d$. Assume $uv$ is not an edge of $G$. Let
+$T_i$ be one of trees containing both $u$ and $v$. Let $w$ be an internal
+vertex of the $u$-$v$ path in $T_i$.\smallskip
+
+\noindent{\em Claim: } $\hat{u}\cap \hat{v}\subseteq \hat{u}\cap \hat{w}$. 
+
+\noindent{\em Proof:}
+If possible, let $j\in (\hat{u}\cap \hat{v})\backslash (\hat{u}\cap
+\hat{w})$. Then $j\in \hat{u},\hat{v}$ but $x\not\in \hat{w}$. Hence, in
+the oriented tree $T(w)$, there exist edges on paths $uv$ and $vw$ in
+$T(w)$ with label $j$. But this contradicts the uniqueness of labels on the
+edges of $T(w)$. Hence the claim.\smallskip
+
+Let $u,z,w$ be the first three vertices on the $u$-$v$ path in the tree
+$T_i$. Let $j$ and $k$ be the labels of edges $\ovr{uz}$ and $\ovr{zw}$
+respectively. We show that $\{j,k\}\in \hat{u}\backslash \hat{w}$. Since
+$j\not\in \hat{z}$, by the previous claim $j\not\in \hat{w}$. Also, we have
+$k\not\in \hat{w}$. It remains to show that $k\in \hat{u}$. Suppose, on the
+contrary that $k\not\in \hat{u}$. But then $k\in \hat{z}$, but $k\not\in
+\hat{u},\hat{w}$. But then $d_G(z)\geq d_{T_k}(z)+2$, a contradiction to
+the assumption (iii). Thus $\{j,k\}\subseteq \hat{u}\backslash \hat{w}$, or
+$\hat{u}\cap \hat{v}\subseteq \hat{u}\cap \hat{w} = \hat{u}\backslash
+(\hat{u}\cap \hat{w}) \subseteq \hat{u}\backslash \{j,k\}$. Thus
+$|\hat{u}\cap \hat{v}|\leq d-1 < d$, a contradiction. This proves the
+lemma.
+\end{proof}
+
+We are now in a position to prove Lemma \ref{lem:permselect}. 
+\begin{proof}[Proof of Lemma $\ref{lem:permselect}$] 
+We show that $(G,{\cal T})$ satisfy the conditions in Lemma
+\ref{lem:construction2} for $d=4$.\smallskip
+
+\noindent{\em Each tree has $n-4$ vertices}:
+From Definition \ref{defn:tree}, the number of vertices in a tree is:
+\begin{align*}
+& 4(k+1) + (4k+1) & \quad [(i)+(ii)] \\
+&+ 2k(0+1+2+3) & \quad [(iii) + (iv)] \\
+&= 20k + 5 = n-4 = n-d & 
+\end{align*}
+
+
+\noindent{\em Any two trees intersect}: From Lemma \ref{lem:span}, it follows that any two trees in ${\cal D}T$
+intersect.\smallskip
+
+\noindent{\em Each vertex appears in $5$ trees, each edge in $4$-trees}:
+Next, we calculate the number of trees that cover a particular
+vertex $v\in V(G)$. Since $T_j=\varphi^j(T_0)$, we see that $|\{j: v\in
+V(T_j)\}|=|\{j: \varphi^j(v)\in V(T_0)\}|$, which is same as the number of
+vertices in $T_0$ from $\varphi$-orbit of $v$. Without loss of generality,
+assume $v=v_{i,0}$ for some $0\leq i\leq 4k$. Clearly, when $v=v_{4i,0}$
+for some $0\leq i\leq k$, $T_0$ contains $5$ vertices from $\varphi$-orbit
+of $v$. Now let $v=v_{4i+t,0}$ where $1\leq t\leq 3$. Let $\varphi_v$
+denote the $\varphi$-orbit of $v$. Note that $T_0$
+intersects $\varphi_v$ at $v$. Other intersections between $T_0$ and
+$\varphi_v$ occur along the downward and upward paths in $T_0$ from
+vertices in $C_i$ and $C_{i+1}$ respectively. Now downward path of
+length $\sigma_{i+1}(p)$ at a vertex in $C_i$ intersects $\varphi_v$ if $\sigma_{i+1}(p)\geq t$. Similarly an upward path
+of length $\tau_{i+1}(q)$ at a vertex in $C_{i+1}$ intersects $\varphi_v$ if $\tau_{i+1}(q)\geq 4-t$. Recalling that
+$\sigma_{i+1},\tau_{i+1}$ are permutations of $\{0,1,2,3\}$, and that the
+respective paths are distinct, we get that $T_0$ contains $1+4-(4-t)+4-t=5$
+vertices from $\varphi_v$. Similarly, it can be shown that $T_0$ contains
+$4$ edges from each edge orbit under $\varphi$. As in the vertex case, this
+implies that each edge is covered by exactly $4$ trees in ${\cal
+T}$.\smallskip
+
+\noindent{\em For a vertex $v\in V(T_i)$,
+$d_G(v)-d_{T_i}(v)\leq 1$}:
+Via the automorphism $\varphi$, it is sufficient to prove that for $v\in
+V(T_0)$, $d_G(v)-d_{T_0}(v)\leq 1$. As $d_G(v_{i,j})=2$ for $i\not\cong 0$
+(mod $4$), there is nothing to prove for those vertices. For remaining
+vertices we have,
+\begin{equation}
+d_G(v_{4i,j}) = \begin{cases}
+	3 & \text{if } i\in \{0,k\}, \\
+	4 & \text{ otherwise. }
+\end{cases}
+\end{equation}
+First consider the case when $i\in \{0,k\}$. Note that $v_{4i,j}\in V(T_0)$
+for $j=0,d_i,\ldots,4d_i$. The vertices $v_{4i,0}$ have at least two
+neighbors in $T_0$ (one on the path $P_0$, and other on the cycle $C_i$).
+Thus the condition holds for these vertices. Similarly the vertices
+$v_{4i,d_i},v_{4i,2d_i}$ and $v_{4i,3d_i}$ have degree at least two in $T_0$ (being internal
+vertices of a path). The vertex $v_{4i,4d_i}$ has a neighbor $v_{4i,3d_i}$
+on $T_0$, and an additional one on the downward (resp., upward) path at
+$v_{4i,3d_i}$ when $i=0$ (resp., $k$). The preceeding claim holds because
+$\sigma_1(3)\geq 1$ and $\tau_k(3)\geq 1$. Now consider the case when
+$i\not\in \{0,k\}$. Then for $t=0,1,2$ the vertices $v_{4i,(t+1)d_i}$ are
+internal vertices of a path in $T_0$. It has a further neighbor on an
+upward or a downward path as $\sigma_i(t)+\tau_{i-1}(t)\geq 1$ for $t=0,1,2$.
+Thus the vertices $v_{4i,(t+1)d_i}$ for $t=0,1,2$ have degree at least $3$ in $T_0$, and
+hence they satisfy the condition. The vertices $v_{4i,4d_i}$ have a
+neighbor $v_{4i,3d_i}$ and one neighbor each on upward and downward paths
+at $v_{4i,4d_i}$ as the condition (c) implies both the paths are
+non-trivial. 
+
+Thus $(G,{\cal T})$ fufill the requirements of Lemma
+\ref{lem:construction2}, and hence yeild tight neighborly four manifolds
+with boundary. 
+\end{proof}
+
+\section{Implementation notes}
+We describe an optimized algorithm to search for tight triangulations using
+Lemma \ref{lem:construction2}. Given $k\geq
+2$ and $n=20k+9$, our task is the following:
+\begin{enumerate}[{\rm (i)}]
+\item Find distinct invertible elements $d_0,\ldots,d_k$ in $\mathbb{Z}_n$.
+Without loss of generality, we may choose $d_0=1$.
+\item For a choice of $d_i:0\leq i\leq k$, search for $k$ pairs of
+permutations
+$\{(\sigma_i,\tau_i)\}_{i=1}^k$ of the set $\{0,1,2,3\}$ satisfying the
+conditions in Lemma \ref{lem:permselect}.
+\end{enumerate}
+
+We explore the sequence $(d_0,\ldots,d_k)$ in a depth-first manner. To
+prune the search tree, we use the following fact, which follows from the
+proof of Lemma \ref{lem:tree}.
+\begin{equation}\label{eq:prune}
+\{\pm td_i:t=1,2,3,4\}\cap \{\pm td_j: t=1,2,3,4\} = \emptyset \text{ for }
+i\neq j.
+\end{equation}
+
+Having determined a sequence $d_0,\ldots,d_k$, we look for a deck of $k$
+permutation pairs $\{(\sigma_i,\tau_i)\}_{i=1}^k$. Again, we explore the
+permutation pairs in a depth-first manner. The observations below help to
+ecnomize the search.
+From Lemma \ref{lem:permselect}, it follows that a valid permutation
+$\sigma$ should satisfy $\sigma(t)=0$ for $t\in \{0,1,2\}$. Accordingly, we
+call $\sigma$ to be of type $0$, $1$ or $2$ depending on whether
+$\sigma(0)=0$, $\sigma(1)=0$ or $\sigma(2)=0$. Similarly, we call a
+permutation pair $(\sigma,\tau)$ to be of type $(l,m)$ if $\sigma$ is of
+type $l$ and $\tau$ is of type $m$. Since there are $6$ permutations of
+each type, there are $6\times 6=36$ permutation pairs of each type. As
+there are $9$ types of permuation pairs, we have $36\times 9=324$
+permutations to consider at each level. However, we can substantially
+reduce this number. We call permutation pairs of type
+$(l,m)$ and $(l',m')$ to be {\em compatible} if $m\neq l'$. Observe that
+the adjacent permutation pairs $(\sigma_i,\tau_i)$ and
+$(\sigma_{i-1},\tau_{i-1})$ in a $k$-deck satisfying Lemma
+\ref{lem:permselect} must be compatible. Thus, apart from the first level,
+we only have to consider $216$ compatible permutation pairs. To enable
+faster access to compatible permutations at each level, we do a
+pre-processing step of storing them by their type. We store $36$
+permutations of each type in a contiguous block. Then we stack $9$ such
+blocks to form a linear array of $324$ permutation pairs. The blocks are
+stacked following the lexicographic ordering of the type of the permutation
+pairs they contain. It can be seen that in this scheme, all the permutation
+pairs compatible with a given permutation pair, occur as contiguous blocks,
+possibly wrapping around at the end of the array. 
+Finally, we store a permutation pair $(\sigma,\tau)$ as the following set,
+which we call its {\em treetype}.
+\begin{equation}\label{eq:treetype}
+treetype(\sigma,\tau) = \{(p+1,q+1): \sigma(p)+\tau(q)\geq 4\}.
+\end{equation}
+Given a set of six tuples $S$, there is at most one permutation pair
+$(\sigma,\tau)$ such that $treetype(\sigma,\tau)=S$. The nomenclature
+"treetype" denotes the fact that $(\sigma,\tau)$ determine the shape of
+the tree at a particular level. 
+
+\section{Results}
+Following table summarizes the number of solutions for different values of
+$k$. The $d$-vectors and treetypes of the solutions appear in the appendix.
+
+\begin{table}[htbp]\label{tab:results}
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+$k$ & $n$ & \#(solutions) & Remarks \\
+\hline
+0 & 9 & 1 & K\"{u}hnel's twisted torus \\
+\hline
+1 & 29 & 6 & Includes examples in \cite{bdns} \\
+\hline
+2 & 49 & 1 & New \\
+\hline
+3 & 69 & 15 & '' \\
+\hline
+4 & 89 & 41 & '' \\
+\hline
+5 & 109 & 12 & '' \\
+\hline
+\end{tabular}
+\caption{Examples of tight three manifolds}
+\end{table}
+%\bigskip
+
+
+
+%{\footnotesize
+{\small
+
+\begin{thebibliography}{99}
+
+\bibitem{BaTight}
+B. Bagchi, 
+A tightness criterion for homology manifolds with or without boundary,  {\em Euro. J. Combin.} (to appear), arXiv:1406.4299.
+
+\bibitem{bd10} 
+B. Bagchi, B. Datta, On Walkup's class ${\cal K}(d)$ and a minimal triangulation of $(S^{\hspace{.2mm}3} 
+\mbox{$\times \hspace{-2.5mm}_{-}$} \, S^{\hspace{.1mm}1})^{\#3}$, {\em Discrete Math.} {\bf 311} (2011), 989--995.
+
+
+\bibitem{bd16}
+B. Bagchi, B. Datta, On stellated spheres and a tightness
+criterion for combinatorial manifolds, {\em Euro. J. Combin.} {\bf 36}
+(2014), 294--313.
+
+\bibitem{bd17}
+B. Bagchi, B. Datta, On $k$-stellated and $k$-stacked spheres, {\em Discrete
+Math.} {\bf 313} (2013), 2318--2329.
+
+\bibitem{bdns}
+B. Datta, N. Singh, An infinite family of tight triangulations of manifolds,
+{\em J. Combin. Theory (A)} {\bf 120} (2013), 2148--2163.
+
+\bibitem{ef} F. Effenberger, Stacked polytopes and tight
+triangulations of manifolds, {\em J. Combin. Theory} (A) {\bf 118}
+(2011), 1843--1862.
+
+\bibitem{simpcomp} F. Effenberger, J. Spreer, \emph{{\tt simpcomp}
+-- a {\tt GAP} toolkit for simplicial complexes}, Version 1.5.4,
+2011, http://www.igt.uni-stuttgart.de/LstDiffgeo/simpcomp.
+
+
+\bibitem{ka} G. Kalai, Rigidity and the lower bound theorem 1, {\em
+Invent.  math.} {\bf 88} (1987), 125--151.
+
+\bibitem{NS} I. Novik, E. Swartz, Socles of Buchsbaum modules, complexes and
+posets, {\em Adv. in Math.} {\bf 222} (2009), 2059--2084.
+
+\bibitem{ku} W. K\"{u}hnel, {\em Tight Polyhedral Submanifolds and
+Tight Triangulations}, Lecture Notes in Mathematics {\bf 1612},
+Springer-Verlag, Berlin, 1995.
+
+\bibitem{LSS} F. H. Lutz, T. Sulanke, E. Swartz, $f$-vector of
+3-manifolds, {\em Electron. J. Comb.} {\bf 16} (2009), \#R\,13,
+1--33.
+
+\bibitem{si} N. Singh, Strongly minimal triangulations of
+$(S^{\hspace{.2mm}3} \times S^{\hspace{.2mm}1})^{\#3}$ and
+$(S^{\hspace{.2mm}3} \mbox{$\times \hspace{-2.5mm}_{-}$} \,
+S^{\hspace{.1mm}1})^{\#3}$ (to appear in {\em Proc. Indian Academy of Sciences
+(Math Sci.)}).
+
+\bibitem{wa} D. W. Walkup, The lower bound conjecture for 3- and
+4-manifolds, {\em Acta Math.} {\bf 125} (1970), 75--107.
+
+\end{thebibliography} }
+
+\end{document}
+
+
+
+arXiv:1207.6182v1, 2012, 8 pages.
